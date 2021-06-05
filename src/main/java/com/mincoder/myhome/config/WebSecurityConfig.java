@@ -24,18 +24,18 @@ import javax.sql.DataSource;
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                        .antMatchers("/", "/home").permitAll()
+                        .antMatchers("/", "/css/**").permitAll()
                         .anyRequest().authenticated()
                         .and()
                     .formLogin()
-                        .loginPage("/login")
+                        .loginPage("/account/login")
                         .permitAll()
                         .and()
                     .logout()
                         .permitAll();
         }
 
-        @Autowired
+        @Autowired   //jdbc를 이용해서 사용자쿼리와 권한쿼리를 가져옴
         public void configureGlobal(AuthenticationManagerBuilder auth)
                 throws Exception {
             auth.jdbcAuthentication()
@@ -44,9 +44,10 @@ import javax.sql.DataSource;
                     .usersByUsernameQuery("select username,password,enabled "  //인증처리 - table 컬럼 순서대로 select 해야함
                             + "from user "
                             + "where username = ?")
-                    .authoritiesByUsernameQuery("select email,authority "  //권한처리
-                            + "from authorities "
-                            + "where email = ?");
+                    .authoritiesByUsernameQuery("select username,authority "  //권한처리
+                            + "from user_role ur inner join user u on ur.user_id = u.id "
+                            + "inner join role r on ur.role_id = r.id "
+                            + "where username = ?");
         }
 
     @Bean  //위에 @Configuration 를 했기때문에 @Bean설정 가능함.
