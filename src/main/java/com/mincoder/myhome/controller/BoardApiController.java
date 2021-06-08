@@ -5,6 +5,7 @@ import com.mincoder.myhome.model.Board;
 import com.mincoder.myhome.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -15,9 +16,17 @@ class BoardApiController {
     @Autowired
     private BoardRepository repository;
 
-    @GetMapping("/boards")
-    List<Board> all() {
-        return repository.findAll();
+
+    //제목 검색 추가,
+    @GetMapping("/boards")   //required=true가 기본 값. true면 param 전달 안됨. title 값을 받는 것.
+    //title 값을 받으면 검색을 하고 ,전달되지 않았다면 return
+    List<Board> all(@RequestParam(required = false, defaultValue = "") String title,
+        @RequestParam(required = false, defaultValue = "") String content) {
+        if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
+            return repository.findAll();  //전체 데이터 조회
+        }else{
+            return repository.findByTitleOrContent(title, content);
+        }
     }
 
     @PostMapping("/boards")
