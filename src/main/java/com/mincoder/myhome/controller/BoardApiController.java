@@ -29,7 +29,7 @@ class BoardApiController {
         }
     }
 
-    @PostMapping("/boards")
+    @PostMapping("/boards")  //post 요청으로 받는 parameter가 requestbody
     Board newBoard(@RequestBody Board newBoard) {
         return repository.save(newBoard);
     }
