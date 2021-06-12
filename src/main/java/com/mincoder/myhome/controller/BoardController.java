@@ -30,7 +30,7 @@ public class BoardController {
     public String list(Model model, Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable);
         //getPageable -> page 정보를 사용할 수 있음. getTotalElements -> 전체 데이터 건수, getTotalPages -> 총 page수
-        int startPage = Math.max(0, boards.getPageable().getPageNumber() - 4);
+        int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4); //4건씩 보이기
         int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
@@ -49,7 +49,7 @@ public class BoardController {
         return "board/form";
     }
 
-    @PostMapping("/form")
+    @PostMapping("/form")   //@Valid 유효성 검사 어노테이션
     public String greetingSubmit(@Valid Board board, BindingResult bindingResult)  {
         boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {

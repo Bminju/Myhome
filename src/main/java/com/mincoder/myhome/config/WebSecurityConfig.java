@@ -24,7 +24,7 @@ import javax.sql.DataSource;
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                        .antMatchers("/", "/css/**").permitAll()
+                        .antMatchers("/", "/css/**").permitAll()  //권한 없이 접근할 경로
                         .anyRequest().authenticated()
                         .and()
                     .formLogin()
