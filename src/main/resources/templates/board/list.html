@@ -20,6 +20,14 @@
     <div class="container">
         <h2>게시판</h2>
         <div>총 건수 : <span th:text="${boards.totalElements}"></span></div>
+        <!--검색 form-->
+        <form class="form-inline d-flex justify-content-end">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="searchText" class="sr-only">검색</label>
+                <input type="text" class="form-control" id="searchText" name="searchText">
+            </div>
+            <button type="submit" class="btn btn-light mb-2">검색</button>
+        </form>
         <table class="table caption-top">
 
             <thead>
