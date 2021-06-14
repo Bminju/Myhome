@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +28,11 @@ public class BoardController {
 
     //list 조회
     @GetMapping("/list")
-    public String list(Model model, Pageable pageable) {
-        Page<Board> boards = boardRepository.findAll(pageable);
+    public String list(Model model, @PageableDefault(size = 2) Pageable pageable,
+                       @RequestParam(required = false, defaultValue = "") String searchText) {
+        //Page<Board> boards = boardRepository.findAll(pageable);
         //getPageable -> page 정보를 사용할 수 있음. getTotalElements -> 전체 데이터 건수, getTotalPages -> 총 page수
+        Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(searchText,searchText,pageable);
         int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4); //4건씩 보이기
         int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);
         model.addAttribute("startPage", startPage);
