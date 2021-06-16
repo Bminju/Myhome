@@ -39,9 +39,9 @@
             </thead>
             <tbody>
             <tr th:each="board : ${boards}">
-                <td th:text="${boards=='id'}">Mark</td>  // th문법 다시 확인
+                <td th:text="${board.id}">Mark</td>  // th문법 다시 확인
                 <td>
-                <a th:text="${boards=='title'}" th:href="@{/board/form/(id=${boards=='id'})}">Ot</a></td>
+                <a th:text="${board.title}" th:href="@{/board/form/(id=${board.id})}">Ot</a></td>
                 <td>홍길동</td>
             </tr>
             </tbody>

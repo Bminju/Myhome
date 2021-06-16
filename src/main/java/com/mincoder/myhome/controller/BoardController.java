@@ -56,7 +56,7 @@ public class BoardController {
     public String greetingSubmit(@Valid Board board, BindingResult bindingResult)  {
         boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "board/form";
+            return "/form";
         }
 
         boardRepository.save(board);
