@@ -20,10 +20,16 @@ public class AccountController {
         return "account/login";
     }
 
+    @GetMapping("/register")
+    public String register(){
+
+        return "account/register";
+    }
+
     //회원가입
     @PostMapping("/register")
     public String register(User user){
         userService.save(user); //user 저장
-        return "account/register";
+        return "redirect:/"; //회원가입 완료 후 홈 이동
     }
 }

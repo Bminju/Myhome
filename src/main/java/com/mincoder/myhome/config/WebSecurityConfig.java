@@ -44,7 +44,7 @@ import javax.sql.DataSource;
                     .usersByUsernameQuery("select username,password,enabled "  //인증처리 - table 컬럼 순서대로 select 해야함
                             + "from user "
                             + "where username = ?")
-                    .authoritiesByUsernameQuery("select username,authority "  //권한처리
+                    .authoritiesByUsernameQuery("select u.username, r.name "  //권한처리
                             + "from user_role ur inner join user u on ur.user_id = u.id "
                             + "inner join role r on ur.role_id = r.id "
                             + "where username = ?");
