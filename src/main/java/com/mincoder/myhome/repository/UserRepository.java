@@ -1,7 +1,8 @@
 package com.mincoder.myhome.repository;
 
-import com.mincoder.myhome.model.Board;
+
+import com.mincoder.myhome.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository  extends JpaRepository<Board, Long> {
+public interface UserRepository  extends JpaRepository<User, Long> {
 }
