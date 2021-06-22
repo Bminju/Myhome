@@ -12,18 +12,19 @@
   <title>login</title>
 </head>
 <body class="text-center">
-  <div th:if="${param.error}" class="alert alert-danger" role="alert">
-    Invalid username and password.
-  </div>
-  <!--나중에 로그아웃 했을 때 나타날 에러메세지-->
-  <div th:if="${param.logout}" class="alert alert-primary" role="alert">
-    You have been logged out.
-  </div>
+
 <!--th:action와 @문법을 써야 csrf토큰이 함께 전송됨-->
-<main class="form-signin" th:action="@{/account/register}" method="post">
-  <form>
-    <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+
+  <form class="form-signin" th:action="@{/account/register}" method="post">
+    <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></a>
     <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+      Invalid username and password.
+    </div>
+    <!--나중에 로그아웃 했을 때 나타날 에러메세지-->
+    <div th:if="${param.logout}" class="alert alert-primary" role="alert">
+      You have been logged out.
+    </div>
     <div class="form-floating">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username"  name="username" placeholder="Username" required/>

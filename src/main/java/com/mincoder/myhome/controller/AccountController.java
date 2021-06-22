@@ -22,7 +22,6 @@ public class AccountController {
 
     @GetMapping("/register")
     public String register(){
-
         return "account/register";
     }
 

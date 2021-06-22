@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- Required meta tags -->
 <head th:fragment="head(title)">
 <meta charset="utf-8">
@@ -43,13 +43,15 @@
                 <!--                </li>-->
             </ul>
 
-            <a class="btn btn-outline-success" th:href="@{/account/login}">Login</a>
-
-            <form class="d-flex">
-                <span class="text-white">사용자</span>
-                <span class="text-white">권한</span>
+            <a class="btn btn-secondary my-2 mr-2 " th:href="@{/account/login}"
+                sec:authorize="!isAuthenticated()">Login</a>
+            <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"
+               sec:authorize="!isAuthenticated()">Join</a>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">
+                <span class="text-white" sec:authentication="name">사용자</span>
+                <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
                 <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-                <button class="btn btn-outline-success" type="submit">Logout</button>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
             </form>
         </div>
     </div>

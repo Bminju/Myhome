@@ -41,13 +41,13 @@ import javax.sql.DataSource;
             auth.jdbcAuthentication()
                     .dataSource(dataSource)  //properties에 설정되어 있는 dataSource를 사용할 수 있음
                     .passwordEncoder(passwordEncoder())  //passwordEncoder이용해서 비번 암호화 알아서 처리함
-                    .usersByUsernameQuery("select username,password,enabled "  //인증처리 - table 컬럼 순서대로 select 해야함
+                    .usersByUsernameQuery("select username, password, enabled "  //인증처리 - table 컬럼 순서대로 select 해야함
                             + "from user "
                             + "where username = ?")
                     .authoritiesByUsernameQuery("select u.username, r.name "  //권한처리
                             + "from user_role ur inner join user u on ur.user_id = u.id "
                             + "inner join role r on ur.role_id = r.id "
-                            + "where username = ?");
+                            + "where u.username = ?");
         }
 
     @Bean  //위에 @Configuration 를 했기때문에 @Bean설정 가능함.
