@@ -21,7 +21,6 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-
-
+    @JsonIgnore  // role을 갖고있는 사용자들은 표시되지 않음
     private List<User> users;
 }

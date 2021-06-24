@@ -2,6 +2,7 @@ package com.mincoder.myhome.controller;
 
 import com.mincoder.myhome.model.Board;
 import com.mincoder.myhome.repository.BoardRepository;
+import com.mincoder.myhome.service.BoardService;
 import com.mincoder.myhome.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardValidator boardValidator;
@@ -57,11 +62,13 @@ public class BoardController {
     public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication)  {
         boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "/form";
+            return "board/form";
         }
-        String username = authentication.getName();
-
-        boardRepository.save(board);
+        //전역변수를 이용해 인증 정보를 받는 방법
+        //Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); //유저 인증정보 가져옴
+        boardService.save(username, board);
+      //  boardRepository.save(board);
         return "redirect:/board/list";
     }
 }

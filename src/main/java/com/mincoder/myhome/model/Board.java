@@ -20,10 +20,9 @@ public class Board {
     private String title;
     private String content;
 
-    @ManyToOne
+    @ManyToOne  //어떤 컬럼을 참조할 것인지 JoinColumn으로 설정
     @JoinColumn(name = "user_id")  //소유하는 쪽 Many에 해당. 외래키를 가지고 있음.
     @JsonIgnore
     private User user;
-
 
 }
