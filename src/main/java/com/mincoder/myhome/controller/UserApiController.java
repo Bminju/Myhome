@@ -42,7 +42,9 @@ class UserApiController {
                 .map(user -> {
  //                   User.setTitle(newUser.getTitle());
  //                   User.setContent(newUser.getContent());
-                    user.setBoards(newUser.getBoards());
+                    //user.setBoards(newUser.getBoards());
+                    user.getBoards().clear();  //기존 데이터 삭제
+                    user.getBoards().addAll(newUser.getBoards()); // 받은 데이터로 데이터 변경
                     for(Board board : user.getBoards()) {
                         board.setUser(user);
                     }
