@@ -23,6 +23,7 @@ import javax.sql.DataSource;
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .csrf().disable()
                     .authorizeRequests()
                         .antMatchers("/", "/account/register","/css/**","/api/**").permitAll()  //권한 없이 접근할 경로
                         .anyRequest().authenticated()

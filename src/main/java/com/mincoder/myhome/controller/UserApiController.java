@@ -1,6 +1,7 @@
 package com.mincoder.myhome.controller;
 
 
+import com.mincoder.myhome.model.Board;
 import com.mincoder.myhome.model.User;
 import com.mincoder.myhome.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,14 @@ class UserApiController {
     User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
         return repository.findById(id)
-                .map(User -> {
+                .map(user -> {
  //                   User.setTitle(newUser.getTitle());
  //                   User.setContent(newUser.getContent());
-
-                    return repository.save(User);
+                    user.setBoards(newUser.getBoards());
+                    for(Board board : user.getBoards()) {
+                        board.setUser(user);
+                    }
+                    return repository.save(user);
                 })
                 .orElseGet(() -> {
                     newUser.setId(id);

@@ -11,7 +11,6 @@ import java.util.List;
 @Entity   //DB연동을 위한 model class임을 알려줌
 @Data
 public class User {
-
     @Id  //id가 pk임을 알려줌
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +27,7 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
     //One에 해당.
-    @OneToMany(mappedBy = "user")  //양방향 매핑 board에서 사용한 변수명을 써줌
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)  //양방향 매핑 board에서 사용한 변수명을 써줌
     private List<Board> boards = new ArrayList<>();
+
 }
