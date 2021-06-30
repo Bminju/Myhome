@@ -4,6 +4,7 @@ package com.mincoder.myhome.controller;
 import com.mincoder.myhome.model.Board;
 import com.mincoder.myhome.model.User;
 import com.mincoder.myhome.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j  //log 찍는데 필요
 class UserApiController {
 
     @Autowired
@@ -22,7 +24,10 @@ class UserApiController {
     @GetMapping("/users")
     List<User> all() {
         List<User> users = repository.findAll();
-        users.get(0).getBoards().size();
+        log.debug("getBoards().size() 호출전"); //디버그
+        log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
+
+        log.debug("getBoards().size() 호출후");
         return users;
     }
 
