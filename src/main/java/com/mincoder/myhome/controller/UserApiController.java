@@ -21,7 +21,9 @@ class UserApiController {
     //제목 검색 추가,
     @GetMapping("/users")
     List<User> all() {
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        users.get(0).getBoards().size();
+        return users;
     }
 
     @PostMapping("/Users")  //post 요청으로 받는 parameter가 requestbody
