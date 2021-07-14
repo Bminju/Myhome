@@ -19,6 +19,7 @@ public class User {
     private String password;
     private Boolean enabled;
 
+    @JsonIgnore
     @ManyToMany  // 양방향Mapping JPA 문법
     @JoinTable(
             name = "user_role",
@@ -27,7 +28,8 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
     //One에 해당.
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)  //양방향 매핑 board에서 사용한 변수명을 써줌
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)  //양방향 매핑 board에서 사용한 변수명을 써줌
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)  //양방향 매핑 board에서 사용한 변수명을 써줌
     private List<Board> boards = new ArrayList<>();
 
 }
